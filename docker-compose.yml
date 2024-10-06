@@ -1,0 +1,19 @@
+services:
+  webscrapingapp:
+    container_name: webscrapingapp
+    build: .
+    ports:
+      - 8000:8000
+    volumes:
+      - ./webscrapingapp /webscrapingapp
+    depends_on:
+      - psql
+    env_file:
+      - ./dotenv_files/.env
+  psql:
+    container_name: psql
+    image: postgres:17.0-alpine3.20
+    volumes:
+      - ./data/postgres/data /data/postgressql/data
+    env_file:
+      - ./dotenv_files/.env
